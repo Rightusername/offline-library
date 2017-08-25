@@ -1,0 +1,18 @@
+<nav class="navbar navbar-toggleable-md ">
+  <div class="inputwrap">  
+    <label for="search"><span mdPrefix><md-icon>search</md-icon></span></label>
+    <md-input-container>
+        <input mdInput placeholder="Искать..." id="search"  [(ngModel)]="booksService.inputValue" name="inputvalue" value="Sushi">
+    </md-input-container>
+    <md-select placeholder="Категория" [(ngModel)]="booksService.selectedCategory">
+        <md-option value="all">
+            {{'Все' + ' (' + booksService.books.length + ') '}}
+        </md-option>
+        <md-option *ngFor="let category of booksService.getCategories()" [value]="category">
+            {{category + ' (' + booksService.categoryBooksAmount(category) + ') '}}
+        </md-option>
+    </md-select>
+  </div>
+
+  <button md-raised-button (click)="dialogsService.addBook()" class="text-uppercase" >Добавить книгу</button>
+</nav>

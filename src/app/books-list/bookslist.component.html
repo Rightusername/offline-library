@@ -1,0 +1,71 @@
+
+
+
+
+<md-tab-group>
+    <md-tab [label]="'Книги (' + booksService.books.length + ')'"  class="">
+        <div *ngIf="this.booksService.books.length == 0" class="text-center label">Список пуст</div>
+        <div class="wrap" *ngIf="this.booksService.books.length > 0">
+            <table mdSort (mdSortChange)="sortData($event)" class="table">
+            <tr>
+                <th class="tdName" md-sort-header="name">Название</th>
+                <th class="tdType" md-sort-header="author">Автор</th>
+                <th class="tdType" md-sort-header="category">Категория</th>
+                <th class="tdMenu" >Меню</th>
+            </tr>
+
+            <tr *ngFor="let book of sortedData"  (dblclick)="openDialogOpenFile(file)" class="list_item">
+                <td *ngIf="booksService.filter(book)" class="tdName" >{{book.name}}</td>
+                <td *ngIf="booksService.filter(book)" class="tdType" >{{book.author}}</td>
+                <td *ngIf="booksService.filter(book)" class="tdType" >{{book.category}}</td>
+                <td *ngIf="booksService.filter(book)" class="tdMenu" >
+                    <md-icon (click)="this.booksService.toggleFavorite(book)" *ngIf="!book.favorite">bookmark_border</md-icon>
+                    <md-icon (click)="this.booksService.toggleFavorite(book)" *ngIf="book.favorite">bookmark</md-icon> 
+                
+                    <md-menu #appMenu="mdMenu">
+                        <button md-menu-item (click)="dialogsService.editBook(book)"> Редактировать </button>
+                        <button md-menu-item (click)="this.booksService.deleteBook(book)">Удалить</button>
+                    </md-menu>
+
+                    <md-icon md-icon-button [mdMenuTriggerFor]="appMenu" >more_vert</md-icon>
+                </td>
+            </tr>
+        
+        </table>
+        </div>
+    </md-tab>
+
+    <md-tab [label]="'Список желаний (' + this.booksService.wishListLength() + ')'"  >
+        <div *ngIf="this.booksService.wishListLength() == 0" class="text-center label">Список желаний пуст</div>
+        <div class="wrap" *ngIf="this.booksService.wishListLength() > 0">
+            <table mdSort (mdSortChange)="sortData($event)" class="table">
+                <tr>
+                    <th class="tdName" md-sort-header="name">Название</th>
+                    <th class="tdType" md-sort-header="author">Автор</th>
+                    <th class="tdType" md-sort-header="category">Категория</th>
+                    <th class="tdMenu" >Меню</th>
+                </tr>
+
+                <tr *ngFor="let book of sortedData" class="list_item">
+                        
+                        <td *ngIf="booksService.filter(book) && book.favorite" class="tdName">{{book.name}}</td>
+                        <td *ngIf="booksService.filter(book) && book.favorite" class="tdType">{{book.author}}</td>
+                        <td *ngIf="booksService.filter(book) && book.favorite" class="tdType">{{book.category}}</td>
+                        
+                        <td *ngIf="booksService.filter(book) && book.favorite " class="tdMenu">
+                            <md-icon (click)="this.booksService.toggleFavorite(book)"  *ngIf="!book.favorite">bookmark_border</md-icon>
+                            <md-icon (click)="this.booksService.toggleFavorite(book)"  *ngIf="book.favorite">bookmark</md-icon>
+                            
+                            <md-menu #appMenu="mdMenu">
+                                <button md-menu-item (click)="dialogsService.editBook(book)"> Редактировать </button>
+                                <button md-menu-item (click)="this.booksService.deleteBook(book)">Удалить</button>
+                            </md-menu>
+
+                            <md-icon md-icon-button [mdMenuTriggerFor]="appMenu" >more_vert</md-icon>
+                        </td>
+                </tr>
+            </table>
+        </div>
+    </md-tab> 
+</md-tab-group>
+

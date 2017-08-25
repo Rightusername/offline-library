@@ -1,0 +1,26 @@
+<h1 md-dialog-title>Добавление книги</h1>
+
+<md-dialog-content>
+  <md-input-container>
+    <input mdInput placeholder="Имя книги" value="" required [formControl]="nameFormControl" [(ngModel)]="bookName" >
+    <md-error *ngIf="nameFormControl.hasError('required')">
+      Name is <strong>required</strong>
+    </md-error> 
+  </md-input-container>
+
+  <md-input-container>
+    <input mdInput placeholder="Автор книги" value=""  [(ngModel)]="bookAuthor" >
+  </md-input-container>
+
+    <md-select placeholder="Категория" [(ngModel)]="selectedCategory">
+        <md-option (click)="test()" *ngFor="let category of booksService.getCategories()" [value]="category">
+            {{ category }}
+        </md-option>
+    </md-select>
+</md-dialog-content>
+
+
+<md-dialog-actions align="end" layout="row">
+    <button md-dialog-close md-button class="btn btn-primary">Закрыть</button>
+    <button md-dialog-close [disabled]="nameFormControl.hasError('required')" (click)="this.addBook()" md-button class="btn btn-default">Создать</button>
+</md-dialog-actions>
