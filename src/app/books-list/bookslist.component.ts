@@ -31,6 +31,7 @@ export class BooksListComponent {
             switch (sort.active) {
                 case 'name': return this.compare(a.name, b.name, isAsc);
                 case 'author': return this.compare(a.author, b.author, isAsc);
+                case 'category': return this.compare(a.category, b.category, isAsc);
             }
         });
     }
