@@ -1,4 +1,4 @@
 # OfflineLibrary
 
-watch <a href="https://github.com/Rightusername/offline-library">demo</a>
+watch <a href="https://rightusername.github.io/offline-library/">demo</a>
 
